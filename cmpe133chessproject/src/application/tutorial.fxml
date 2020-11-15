@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.tutorialController">
+   <children>
+      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="257.0" layoutY="3.0" prefHeight="61.0" prefWidth="89.0" text="Tutorial">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
+      <ImageView fitHeight="228.0" fitWidth="320.0" layoutX="140.0" layoutY="75.0" pickOnBounds="true" preserveRatio="true" />
+      <Button layoutX="521.0" layoutY="355.0" mnemonicParsing="false" onAction="#nextPage" text="Next" />
+      <TextArea layoutX="14.0" layoutY="64.0" prefHeight="273.0" prefWidth="574.0" text="Chesss is a strategy game, where the objective is to defeat your opponent using a&#10;limited number of pieces with different movement patterns on a board.&#10;&#10;Each side starts out with 16 pieces, consisting of 8 pawns, 2 rooks, 2 knights, &#10;2 bishops, and a king and a queen, all in the same color. The player with the white &#10;pieces goes first, followed by black pieces&#10;&#10;A player is considered defeated if they are unable to move their king piece to a&#10;position where it can avoid being captured&#10;" />
+      <Button layoutX="278.0" layoutY="355.0" mnemonicParsing="false" onAction="#goToHomePage" text="Exit" />
+   </children>
+</AnchorPane>
