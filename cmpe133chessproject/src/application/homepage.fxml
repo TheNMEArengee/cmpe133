@@ -12,15 +12,17 @@
    <center>
       <VBox alignment="CENTER" prefHeight="709.0" prefWidth="533.0" BorderPane.alignment="CENTER">
          <children>
-            <Label alignment="CENTER" text="Chess">
-               <font>
-                  <Font name="System Bold" size="30.0" />
-               </font></Label>
-            <AnchorPane prefHeight="138.0" prefWidth="198.0">
+            <AnchorPane prefHeight="199.0" prefWidth="198.0">
                <children>
-                  <Button layoutX="62.0" layoutY="14.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="74.0" text="Play" />
-                  <Button layoutX="62.0" layoutY="93.0" mnemonicParsing="false" onAction="#quit" prefHeight="31.0" prefWidth="74.0" text="Exit" />
-                  <Button layoutX="62.0" layoutY="54.0" mnemonicParsing="false" onAction="#goToTutorial" prefHeight="31.0" prefWidth="74.0" text="Tutorial" />
+                  <Button layoutX="110.0" layoutY="69.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="74.0" text="Play" />
+                  <Button layoutX="110.0" layoutY="130.0" mnemonicParsing="false" onAction="#quit" prefHeight="31.0" prefWidth="74.0" text="Exit" />
+                  <Button layoutX="14.0" layoutY="130.0" mnemonicParsing="false" onAction="#goToTutorial" prefHeight="31.0" prefWidth="74.0" text="Tutorial" />
+                  <Button layoutX="14.0" layoutY="69.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="74.0" text="Login" />
+                  <Label alignment="CENTER" layoutX="59.0" layoutY="14.0" text="Chess">
+                     <font>
+                        <Font name="System Bold" size="30.0" />
+                     </font>
+                  </Label>
                </children>
             </AnchorPane>
          </children>
