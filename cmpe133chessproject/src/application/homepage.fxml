@@ -14,10 +14,10 @@
          <children>
             <AnchorPane prefHeight="199.0" prefWidth="198.0">
                <children>
-                  <Button layoutX="110.0" layoutY="69.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="74.0" text="Play" />
+                  <Button layoutX="110.0" layoutY="69.0" mnemonicParsing="false" onAction="#goToGame" prefHeight="31.0" prefWidth="74.0" text="Play" />
                   <Button layoutX="110.0" layoutY="130.0" mnemonicParsing="false" onAction="#quit" prefHeight="31.0" prefWidth="74.0" text="Exit" />
                   <Button layoutX="14.0" layoutY="130.0" mnemonicParsing="false" onAction="#goToTutorial" prefHeight="31.0" prefWidth="74.0" text="Tutorial" />
-                  <Button layoutX="14.0" layoutY="69.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="74.0" text="Login" />
+                  <Button layoutX="14.0" layoutY="69.0" mnemonicParsing="false" onAction="#GoToLogin" prefHeight="31.0" prefWidth="74.0" text="Login" />
                   <Label alignment="CENTER" layoutX="59.0" layoutY="14.0" text="Chess">
                      <font>
                         <Font name="System Bold" size="30.0" />
