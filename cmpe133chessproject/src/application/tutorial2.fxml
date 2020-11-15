@@ -18,7 +18,7 @@
       <Button layoutX="365.0" layoutY="500.0" mnemonicParsing="false" onAction="#goToHomePage" text="Exit" />
       <ImageView fitHeight="431.0" fitWidth="602.0" layoutX="88.0" layoutY="57.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../../../../../Desktop/chessinstructions.jpg" />
+            <Image url="@chessinstructions.jpg" />
          </image>
       </ImageView>
       <Button layoutX="14.0" layoutY="500.0" mnemonicParsing="false" onAction="#previousPage" text="Previous" />
