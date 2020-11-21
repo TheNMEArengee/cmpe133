@@ -24,7 +24,7 @@ import view.ChessPane;
 public class homepageController {
 	
 	public void GoToLogin(ActionEvent event) throws IOException {
-		AnchorPane root = (AnchorPane)FXMLLoader.load(getClass().getResource("tutorial.fxml"));
+		BorderPane root = (BorderPane)FXMLLoader.load(getClass().getResource("login.fxml"));
 		Scene scene = new Scene(root);
 		scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 		Stage window = (Stage) ((Node)event.getSource()).getScene().getWindow();
@@ -37,39 +37,37 @@ public class homepageController {
 		/*
 		 * Old code
 		 */	
-//		AnchorPane root = (AnchorPane)FXMLLoader.load(getClass().getResource("chessGameBoard1.fxml"));
-//		Scene scene = new Scene(root);
-//		scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
-//		Stage window = (Stage) ((Node)event.getSource()).getScene().getWindow();
-//		window.setScene(scene);
-//		window.show();
+		AnchorPane root = (AnchorPane)FXMLLoader.load(getClass().getResource("chessGameBoard1.fxml"));
+		Scene scene = new Scene(root);
+		scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
+		Stage window = (Stage) ((Node)event.getSource()).getScene().getWindow();
+		window.setScene(scene);
+		window.show();
 		
 		
 		/*
 		 * Hao's Code
 		 */
-		ChessBoard chessBoard = ChessBoard.getInstance(68.75,25,25);
-		ChessPane pane = new ChessPane(chessBoard);
-		pane.setOnMousePressed(new PressedAction(pane));
-
-		pane.setOnMouseReleased(new ReleaseAction(pane));
-
-		BorderPane borderPane = new BorderPane();
-		borderPane.setCenter(pane);
-		HBox hBox = new HBox();
-		hBox.setAlignment(Pos.TOP_CENTER);
-		Button button = new Button("Regret");
-		button.setOnAction(new ResetAction(pane));
-		Button button1 = new Button("back");
-		button1.setOnAction(new GoHomeAction(pane));
-		hBox.getChildren().add(button);
-		hBox.getChildren().add(button1);
-		borderPane.setBottom(hBox);
-		Scene scene = new Scene(borderPane,600,600);
-		Stage window = (Stage) ((Node)event.getSource()).getScene().getWindow();
-		window.setScene(scene);
-		window.setTitle("Chess");
-		window.show();
+//		ChessBoard chessBoard = ChessBoard.getInstance(68.75,25,25);
+//		ChessPane pane = new ChessPane(chessBoard);
+//		pane.setOnMousePressed(new PressedAction(pane));
+//		pane.setOnMouseReleased(new ReleaseAction(pane));
+//		BorderPane borderPane = new BorderPane();
+//		borderPane.setCenter(pane);
+//		HBox hBox = new HBox();
+//		hBox.setAlignment(Pos.TOP_CENTER);
+//		Button button = new Button("Regret");
+//		button.setOnAction(new ResetAction(pane));
+//		Button button1 = new Button("back");
+//		button1.setOnAction(new GoHomeAction(pane));
+//		hBox.getChildren().add(button);
+//		hBox.getChildren().add(button1);
+//		borderPane.setBottom(hBox);
+//		Scene scene = new Scene(borderPane,600,600);
+//		Stage window = (Stage) ((Node)event.getSource()).getScene().getWindow();
+//		window.setScene(scene);
+//		window.setTitle("Chess");
+//		window.show();
 	}
 	
 	

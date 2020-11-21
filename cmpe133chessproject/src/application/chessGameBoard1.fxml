@@ -1,14 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import com.gluonhq.charm.glisten.control.Icon?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.effect.ColorAdjust?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.shape.Rectangle?>
 
@@ -36,11 +33,6 @@
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Pane prefHeight="200.0" prefWidth="200.0">
-               <effect>
-                  <ColorAdjust />
-               </effect>
-            </Pane>
             <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#13a86a" height="79.0" stroke="BLACK" strokeType="INSIDE" width="76.0" GridPane.columnIndex="1" />
             <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#13a86a" height="79.0" stroke="BLACK" strokeType="INSIDE" width="76.0" GridPane.rowIndex="1" />
             <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#13a86a" height="79.0" stroke="BLACK" strokeType="INSIDE" width="76.0" GridPane.columnIndex="2" GridPane.rowIndex="1" />
@@ -73,11 +65,6 @@
             <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#13a86a" height="79.0" stroke="BLACK" strokeType="INSIDE" width="76.0" GridPane.columnIndex="4" GridPane.rowIndex="7" />
             <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#13a86a" height="79.0" stroke="BLACK" strokeType="INSIDE" width="76.0" GridPane.columnIndex="6" GridPane.rowIndex="7" />
             <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#13a86a" height="79.0" layoutX="235.0" layoutY="8.0" stroke="BLACK" strokeType="INSIDE" width="76.0" GridPane.columnIndex="4" GridPane.rowIndex="1" />
-            <ImageView fitHeight="60.0" fitWidth="60.0" layoutX="535.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
-               <image>
-                  <Image url="@../img/CarBlack.jpg" />
-               </image>
-            </ImageView>
             <ImageView fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
                <image>
                   <Image url="@../img/HorseBlack.jpg" />
@@ -233,9 +220,13 @@
                   <Image url="@../img/SoldierWhite.jpg" />
                </image>
             </ImageView>
+            <ImageView fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+               <image>
+                  <Image url="@../img/CarBlack.jpg" />
+               </image>
+            </ImageView>
          </children>
       </GridPane>
       <Button layoutX="720.0" layoutY="385.0" mnemonicParsing="false" onAction="#goToHomePage" text="Back" />
-      <Icon content="HELP_OUTLINE" layoutX="35.0" layoutY="145.0" />
    </children>
 </AnchorPane>
