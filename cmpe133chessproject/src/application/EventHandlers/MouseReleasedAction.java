@@ -7,6 +7,7 @@ import javafx.event.EventHandler;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
+import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Alert;
 
 
@@ -322,6 +323,10 @@ public class MouseReleasedAction implements EventHandler<MouseEvent> {
 							validMove = false;
 						}
 						if (validMove) {
+							int x = u.getX() * checkerboard.getTileSize();
+							int y = u.getY() * checkerboard.getTileSize();
+							GraphicsContext gc = checkerboardPane.getGraphicsContext();
+							gc.clearRect(x, y, 60, 60);
 							u.setX(releasedX);
 							u.setY(releasedY);
 							System.out.println("Player " + checkerboard.getCurrPlayer() + " (" + u.getColor() + ")"

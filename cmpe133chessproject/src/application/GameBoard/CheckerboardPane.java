@@ -39,7 +39,7 @@ public class CheckerboardPane extends Pane {
 		checkerboardGridPane.getChildren().add(tileGroup);
 		this.units = new HashSet<>();
 		setUnits();
-		canvas = new Canvas(800,450);
+		canvas = new Canvas(800,480);
 		gc = canvas.getGraphicsContext2D();
 		draw();
 	}
@@ -51,12 +51,12 @@ public class CheckerboardPane extends Pane {
 		units.add(new Unit(0, 0, player, 2)); //Rook
 		units.add(new Unit(1, 0, player, 4)); //Knight
 		units.add(new Unit(2, 0, player, 3)); //Bishop
-		units.add(new Unit(3, 0, player, 1)); //King
-		units.add(new Unit(4, 0, player, 5)); //Queen
+		units.add(new Unit(3, 0, player, 5)); //Queen
+		units.add(new Unit(4, 0, player, 1)); //King
 		units.add(new Unit(5, 0, player, 3)); //Bishop
 		units.add(new Unit(6, 0, player, 4)); //Knight
 		units.add(new Unit(7, 0, player, 2)); //Rook
-		
+
 		//Pawns
 		int y = 1;
 		for (int x = 0; x < 8; x++) {
@@ -68,12 +68,12 @@ public class CheckerboardPane extends Pane {
 		units.add(new Unit(0, 7, player, 2)); //Rook
 		units.add(new Unit(1, 7, player, 4)); //Knight
 		units.add(new Unit(2, 7, player, 3)); //Bishop
-		units.add(new Unit(3, 7, player, 1)); //King
-		units.add(new Unit(4, 7, player, 5)); //Queen
+		units.add(new Unit(3, 7, player, 5)); //Queen
+		units.add(new Unit(4, 7, player, 1)); //King
 		units.add(new Unit(5, 7, player, 3)); //Bishop
 		units.add(new Unit(6, 7, player, 4)); //Knight
 		units.add(new Unit(7, 7, player, 2)); //Rook
-		
+
 		//Pawns
 		y = 6;
 		for (int x = 0; x < 8; x++) {
@@ -118,39 +118,65 @@ public class CheckerboardPane extends Pane {
 		int tileSize = checkerboard.getTileSize();
 		// Traverse entire "units" set
 		units.forEach(u -> {
-			// If we ever want to draw something to symbolize "Selected" visually
-			// if (u.isSelected()) {
-			// System.out.println("Selected: " + u.getX() + ", " + u.getY());
-			// }
-
-			// Rectangle(x coord, y coord, width, height)
 			int x = 10 + (u.getX() * tileSize);
 			int y = 10 + (u.getY() * tileSize);
 			Rectangle r = new Rectangle(x, y, 40, 40);
 
-			// Rounded edges for units
-//			r.setArcWidth(20);
-//			r.setArcHeight(20);
 
 			// Determine color of pieces, check which player the unit belongs to
 			if (u.getPlayer() == 0) {
-				if (u.getRole() == 5) { // King
-					r.setFill(Color.rgb(235, 0, 27));
-				} else { // Pawn
+				if (u.getRole() == 0) { // Pawn
 					Image i = new Image("img/SoldierWhite.jpg", 40, 40, true, true);
-					gc.drawImage(i,x ,y, 40, 40);
-					r.setFill(Color.WHITE);
+					gc.drawImage(i, x, y, 40, 40);
 				}
-				r.setStroke(Color.BLACK);
-			} else {
-				if (u.getRole() == 5) { // King
-					r.setFill(Color.rgb(247, 158, 27));
-				} else { // Pawn
-					r.setFill(Color.GREY);
+				else if(u.getRole() == 1) { //King
+					Image i = new Image("img/KingWhite.jpg", 40, 40, true, true);
+					gc.drawImage(i, x, y, 40, 40);
 				}
-				r.setStroke(Color.BLACK);
+				else if(u.getRole() == 2) { //Rook
+					Image i = new Image("img/CarWhite.jpg", 40, 40, true, true);
+					gc.drawImage(i, x, y, 40, 40);
+				}
+				else if(u.getRole() == 3) { //Bishop
+					Image i = new Image("img/KnightWhite.jpg", 40, 40, true, true);
+					gc.drawImage(i, x, y, 40, 40);
+				}
+				else if(u.getRole() == 4) { //Knight
+					Image i = new Image("img/HorseWhite.jpg", 40, 40, true, true);
+					gc.drawImage(i, x, y, 40, 40);
+				}
+				else if(u.getRole() == 5) { //Queen
+					Image i = new Image("img/QueenWhite.jpg", 40, 40, true, true);
+					gc.drawImage(i, x, y, 40, 40);
+				}
+			} 
+			else {
+				if (u.getRole() == 0) { // Pawn
+					Image i = new Image("img/SoldierBlack.jpg", 40, 40, true, true);
+					gc.drawImage(i, x, y, 40, 40);
+				}
+				else if(u.getRole() == 1) { //King
+					Image i = new Image("img/KingBlack.jpg", 40, 40, true, true);
+					gc.drawImage(i, x, y, 40, 40);
+				}
+				else if(u.getRole() == 2) { //Rook
+					Image i = new Image("img/CarBlack.jpg", 40, 40, true, true);
+					gc.drawImage(i, x, y, 40, 40);
+				}
+				else if(u.getRole() == 3) { //Bishop
+					Image i = new Image("img/KnightBlack.jpg", 40, 40, true, true);
+					gc.drawImage(i, x, y, 40, 40);
+				}
+				else if(u.getRole() == 4) { //Knight
+					Image i = new Image("img/HorseBlack.jpg", 40, 40, true, true);
+					gc.drawImage(i, x, y, 40, 40);
+				}
+				else if(u.getRole() == 5) { //Queen
+					Image i = new Image("img/QueenBlack.jpg", 40, 40, true, true);
+					gc.drawImage(i, x, y, 40, 40);
+				}
 			}
-
+			r.setStroke(Color.BLACK);
 			tileGroup.getChildren().add(r);
 		});
 	}
@@ -163,5 +189,9 @@ public class CheckerboardPane extends Pane {
 
 	public Set<Unit> getUnits() {
 		return units;
+	}
+	
+	public GraphicsContext getGraphicsContext() {
+		return gc;
 	}
 }
