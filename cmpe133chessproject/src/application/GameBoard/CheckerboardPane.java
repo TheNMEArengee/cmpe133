@@ -37,7 +37,6 @@ public class CheckerboardPane extends Pane {
 		this.checkerboardGridPane = new GridPane();
 		tileGroup = new Group();
 		checkerboardGridPane.getChildren().add(tileGroup);
-		// checkerboardGridPane.getChildren().add(cardGroup);
 		this.units = new HashSet<>();
 		setUnits();
 		canvas = new Canvas(800,450);
@@ -49,28 +48,36 @@ public class CheckerboardPane extends Pane {
 	public void setUnits() {
 		// Units for player 0
 		int player = 0;
-		for (int y = 0; y < 2; y++) {
-			for (int x = 0; x < 8; x++) {
-				if (x == 4 && y == 0) { // Add king
-					units.add(new Unit(x, y, player, 5));
-				}
-				else { //Add pawn
-					units.add(new Unit(x, y, player, 0));
-				}
-			}
+		units.add(new Unit(0, 0, player, 2)); //Rook
+		units.add(new Unit(1, 0, player, 4)); //Knight
+		units.add(new Unit(2, 0, player, 3)); //Bishop
+		units.add(new Unit(3, 0, player, 1)); //King
+		units.add(new Unit(4, 0, player, 5)); //Queen
+		units.add(new Unit(5, 0, player, 3)); //Bishop
+		units.add(new Unit(6, 0, player, 4)); //Knight
+		units.add(new Unit(7, 0, player, 2)); //Rook
+		
+		//Pawns
+		int y = 1;
+		for (int x = 0; x < 8; x++) {
+			units.add(new Unit(x, y, player, 0));
 		}
 
 		// Units for Player 1
 		player = 1;
-		for (int y = 6; y < 8; y++) {
-			for (int x = 0; x < 8; x++) {
-				if (x == 4 && y == 7) { // Add king
-					units.add(new Unit(x, y, player, 5));
-				}
-				else { //Add pawn
-					units.add(new Unit(x, y, player, 0));
-				}
-			}
+		units.add(new Unit(0, 7, player, 2)); //Rook
+		units.add(new Unit(1, 7, player, 4)); //Knight
+		units.add(new Unit(2, 7, player, 3)); //Bishop
+		units.add(new Unit(3, 7, player, 1)); //King
+		units.add(new Unit(4, 7, player, 5)); //Queen
+		units.add(new Unit(5, 7, player, 3)); //Bishop
+		units.add(new Unit(6, 7, player, 4)); //Knight
+		units.add(new Unit(7, 7, player, 2)); //Rook
+		
+		//Pawns
+		y = 6;
+		for (int x = 0; x < 8; x++) {
+			units.add(new Unit(x, y, player, 0));
 		}
 	}
 
@@ -80,7 +87,7 @@ public class CheckerboardPane extends Pane {
 		drawBoard();
 		drawUnits();
 		getChildren().add(checkerboardGridPane);
-//		getChildren().add(canvas);
+		getChildren().add(canvas);
 	}
 
 	// Draw the checkerboard
@@ -122,14 +129,16 @@ public class CheckerboardPane extends Pane {
 			Rectangle r = new Rectangle(x, y, 40, 40);
 
 			// Rounded edges for units
-			r.setArcWidth(20);
-			r.setArcHeight(20);
+//			r.setArcWidth(20);
+//			r.setArcHeight(20);
 
 			// Determine color of pieces, check which player the unit belongs to
 			if (u.getPlayer() == 0) {
 				if (u.getRole() == 5) { // King
 					r.setFill(Color.rgb(235, 0, 27));
 				} else { // Pawn
+					Image i = new Image("img/SoldierWhite.jpg", 40, 40, true, true);
+					gc.drawImage(i,x ,y, 40, 40);
 					r.setFill(Color.WHITE);
 				}
 				r.setStroke(Color.BLACK);

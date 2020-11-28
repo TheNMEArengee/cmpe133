@@ -40,62 +40,36 @@ public class homepageController {
 
 
 	public void goToGame(ActionEvent event) throws IOException {
-		/*
-		 * Old code
-		 */	
-		//		AnchorPane root = (AnchorPane)FXMLLoader.load(getClass().getResource("chessGameBoard1.fxml"));
-		//		Scene scene = new Scene(root);
-		//		scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
-		//		Stage window = (Stage) ((Node)event.getSource()).getScene().getWindow();
-		//		window.setScene(scene);
-		//		window.show();
-
-
-		/*
-		 * Hao's Code
-		 */
-		//		ChessBoard chessBoard = ChessBoard.getInstance(68.75,25,25);
-		//		ChessPane pane = new ChessPane(chessBoard);
-		//		pane.setOnMousePressed(new PressedAction(pane));
-		//		pane.setOnMouseReleased(new ReleaseAction(pane));
-		//		BorderPane borderPane = new BorderPane();
-		//		borderPane.setCenter(pane);
-		//		HBox hBox = new HBox();
-		//		hBox.setAlignment(Pos.TOP_CENTER);
-		//		Button button = new Button("Regret");
-		//		button.setOnAction(new ResetAction(pane));
-		//		Button button1 = new Button("back");
-		//		button1.setOnAction(new GoHomeAction(pane));
-		//		hBox.getChildren().add(button);
-		//		hBox.getChildren().add(button1);
-		//		borderPane.setBottom(hBox);
-		//		Scene scene = new Scene(borderPane,600,600);
-		//		Stage window = (Stage) ((Node)event.getSource()).getScene().getWindow();
-		//		window.setScene(scene);
-		//		window.setTitle("Chess");
-		//		window.show();
-
-
 		// Event for start button. Sends the user to the game
 
 
 		/* Current Code */
+		//Initializing variables
 		BorderPane root = (BorderPane)FXMLLoader.load(getClass().getResource("homepage.fxml"));
 		Scene scene = new Scene(root);
 		Stage window = (Stage) ((Node)event.getSource()).getScene().getWindow();
+		
+		
 		window.close();
 		VBox battleField = constructVBox();
 		Checkerboard checkerboard = Checkerboard.getInstance();
 		checkerboard.setCurrentPlayer(0); // Ensure Player 0 starts every time 'Start' is pressed.
 		CheckerboardPane checkerboardPane = new CheckerboardPane(checkerboard);
+		
+		
+		//Back button
 		Button backBtn = new Button("Back");
 		backBtn.addEventHandler(MouseEvent.MOUSE_CLICKED, e -> {
 			window.setScene(scene);
 		});
 		backBtn.setPrefSize(100, 60);
+		
+		
 		battleField.getChildren().addAll(checkerboardPane, backBtn);
 		checkerboardPane.setOnMousePressed(new MousePressedAction(checkerboardPane));	
 		checkerboardPane.setOnMouseReleased(new MouseReleasedAction(checkerboardPane, window, scene));
+		
+		
 		BorderPane bp = new BorderPane();
 		bp.setCenter(battleField);
 		Scene battleFieldInit = new Scene(bp, 480, 650);	
