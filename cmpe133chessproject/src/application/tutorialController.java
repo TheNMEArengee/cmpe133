@@ -18,6 +18,7 @@ public class tutorialController {
 		Scene scene = new Scene(root);
 		scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 		Stage window = (Stage) ((Node)event.getSource()).getScene().getWindow();
+		window.close();
 		window.setScene(scene);
 		window.show();
 	}
@@ -28,6 +29,7 @@ public class tutorialController {
 		Scene scene = new Scene(root);
 		scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 		Stage window = (Stage) ((Node)event.getSource()).getScene().getWindow();
+		window.close();
 		window.setScene(scene);
 		window.show();
 	}
@@ -38,6 +40,7 @@ public class tutorialController {
 		Scene scene = new Scene(root);
 		scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 		Stage window = (Stage) ((Node)event.getSource()).getScene().getWindow();
+		window.close();
 		window.setScene(scene);
 		window.show();
 	}
