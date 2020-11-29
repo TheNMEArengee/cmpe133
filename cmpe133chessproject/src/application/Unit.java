@@ -4,6 +4,8 @@ package application;
 public class Unit {
 	private int x;
 	private int y;
+	private int prevX;
+	private int prevY;
 	private int player;
 	private int role;
 	private String color;
@@ -13,6 +15,8 @@ public class Unit {
 	public Unit(int x, int y, int player, int role) {
 		this.x = x;
 		this.y = y;
+		this.prevX = x;
+		this.prevY = y;
 		this.player = player;
 		this.color = (this.player == 0) ? "White" : "Black"; // 0 = White, 1 = Black
 		this.role = role; //0 = Pawn, 1 = King
@@ -34,6 +38,22 @@ public class Unit {
 
 	public void setY(int y) {
 		this.y = y;
+	}
+	
+	public int getPrevX() {
+		return this.prevX;
+	}
+
+	public int getPrevY() {
+		return this.prevY;
+	}
+	
+	public void setPrevX(int prevX) {
+		this.prevX = prevX;
+	}
+
+	public void setPrevY(int prevY) {
+		this.prevY = prevY;
 	}
 
 	public int getPlayer() {

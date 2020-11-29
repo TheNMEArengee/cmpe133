@@ -25,6 +25,8 @@ import javafx.scene.input.MouseEvent;
 //Checkerboard field's controller basically
 public class CheckerboardPane extends Pane {
 	private Set<Unit> units; // Player's pawns, or units
+	private Unit mostRecentlyMovedUnit; // Most recently moved unit. For undo purposes
+	private Unit mostRecentlyRemovedUnit; // Most recently removed unit. For undo purposes
 	private Checkerboard checkerboard; // Checkerboard instance
 	private GridPane checkerboardGridPane; // Grid to place the checkerboard
 	private Group tileGroup; // For checkerboard tiles
@@ -38,6 +40,8 @@ public class CheckerboardPane extends Pane {
 		tileGroup = new Group();
 		checkerboardGridPane.getChildren().add(tileGroup);
 		this.units = new HashSet<>();
+		this.mostRecentlyMovedUnit = null;
+		this.mostRecentlyRemovedUnit = null;
 		setUnits();
 		canvas = new Canvas(800,480);
 		gc = canvas.getGraphicsContext2D();
@@ -193,5 +197,23 @@ public class CheckerboardPane extends Pane {
 	
 	public GraphicsContext getGraphicsContext() {
 		return gc;
+	}
+
+	
+	public Unit getMostRecentlyMovedUnit() {
+		return mostRecentlyMovedUnit;
+	}
+	
+
+	public void setMostRecentlyMovedUnit(Unit mostRecentlyMovedUnit) {
+		this.mostRecentlyMovedUnit = mostRecentlyMovedUnit;
+	}
+
+	public Unit getMostRecentlyRemovedUnit() {
+		return mostRecentlyRemovedUnit;
+	}
+
+	public void setMostRecentlyRemovedUnit(Unit mostRecentlyRemovedUnit) {
+		this.mostRecentlyRemovedUnit = mostRecentlyRemovedUnit;
 	}
 }

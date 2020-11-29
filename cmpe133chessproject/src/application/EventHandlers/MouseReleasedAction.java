@@ -194,7 +194,7 @@ public class MouseReleasedAction implements EventHandler<MouseEvent> {
 									unitAtPath = unitExistsAtCoords(releasedX, releasedY, checkerboardPane);
 									if (unitAtPath != null) {
 										if (unitAtPath.getColor() == u.getColor()) { // If unit at path is the player's
-																						// own unit
+											// own unit
 											System.out.println("Unit get color");
 											validMove = false;
 										}
@@ -295,11 +295,11 @@ public class MouseReleasedAction implements EventHandler<MouseEvent> {
 							}
 
 							if (unitAtReleasedCoords != null) { // Check if unit exists at coords that unit wants to
-																// move to
+								// move to
 								// Check the unit's player
 								if (unitAtReleasedCoords.getPlayer() == u.getPlayer()) { // If own player's unit,
-																							// invalid
-																							// move
+									// invalid
+									// move
 									System.out.println("Invalid move: Player's own unit exists at destination.");
 									validMove = false;
 								} else { // Enemy unit, remove the enemy unit from the set
@@ -327,11 +327,14 @@ public class MouseReleasedAction implements EventHandler<MouseEvent> {
 							int y = u.getY() * checkerboard.getTileSize();
 							GraphicsContext gc = checkerboardPane.getGraphicsContext();
 							gc.clearRect(x, y, 60, 60);
+							u.setPrevX(u.getX());
+							u.setPrevY(u.getY());
 							u.setX(releasedX);
 							u.setY(releasedY);
+							checkerboardPane.setMostRecentlyMovedUnit(u);
 							System.out.println("Player " + checkerboard.getCurrPlayer() + " (" + u.getColor() + ")"
 									+ " move to " + releasedX + ", " + releasedY + ".");
-							checkerboard.changePlayerTurn();
+//							checkerboard.changePlayerTurn();
 						}
 					} else {
 						System.out.println("Invalid move: Drag only");
@@ -344,14 +347,16 @@ public class MouseReleasedAction implements EventHandler<MouseEvent> {
 				}
 				u.setSelected(false);
 				System.out.println("Unselected Unit.");
-				System.out.println("Player " + checkerboard.getCurrPlayer() + " ("
-						+ checkerboard.getCurrPlayerToString() + ")" + " turn.");
+				System.out.println("Undo or Confirm Move");
 			}
 		}
 		checkerboardPane.getUnits().remove(unitToRemove);
+		checkerboardPane.setMostRecentlyRemovedUnit(unitToRemove);
 		checkerboardPane.drawUnits();
 	}
 
+
+	//Checks if there is a unit at the given x and y location of the checkerboard, returning the unit if so and null otherwise
 	public Unit unitExistsAtCoords(int x, int y, CheckerboardPane cp) {
 		Unit unitAtCoords = null;
 		for (Unit u : cp.getUnits()) {
@@ -364,30 +369,30 @@ public class MouseReleasedAction implements EventHandler<MouseEvent> {
 
 	/* Not used */
 	public void eatPiece(int x, int y, char side) {
-//        chessPane.getChessPieces().removeIf(e->{
-//            if(e.getCol()==x&&e.getRow()==y&&e.getSide()!=side){
-//                stack.push(e);
-//                return true;
-//            }
-//            return false;
-//        });
+		//        chessPane.getChessPieces().removeIf(e->{
+		//            if(e.getCol()==x&&e.getRow()==y&&e.getSide()!=side){
+		//                stack.push(e);
+		//                return true;
+		//            }
+		//            return false;
+		//        });
 	}
 
 	public boolean judgeGame(int x, int y) {
-//        for(ChessPiece e:chessPane.getChessPieces()){
-//            if(e.getCol()==x&&e.getRow()==y&&(
-//                    e.getType()== PieceType.KINGBLACK||e.getType()== PieceType.KINGWHITE))
-//                return true;
-//        }
+		//        for(ChessPiece e:chessPane.getChessPieces()){
+		//            if(e.getCol()==x&&e.getRow()==y&&(
+		//                    e.getType()== PieceType.KINGBLACK||e.getType()== PieceType.KINGWHITE))
+		//                return true;
+		//        }
 
 		return false;
 	}
 
 	public void printTip(char side) {
-//        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-//        alert.setContentText((side=='B'?"é»‘":"ç™½")+"æ–¹å�–å¾—èƒœåˆ©");
-//        alert.setTitle("æ¸¸æˆ�ç»“æ�Ÿ");
-//        alert.showAndWait();
+		//        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+		//        alert.setContentText((side=='B'?"é»‘":"ç™½")+"æ–¹å�–å¾—èƒœåˆ©");
+		//        alert.setTitle("æ¸¸æˆ�ç»“æ�Ÿ");
+		//        alert.showAndWait();
 	}
 
 }
