@@ -72,11 +72,15 @@ public class MousePressedAction implements EventHandler<MouseEvent> {
 
 	}
 
+	//Highlights all the valid squares a queen can move
 	private void colorQueenSquares(Unit unit) {
 		colorRookSquares(unit);
+		colorBishopSquares(unit);
 
 	}
 
+	
+	//Highlights all the valid squares a Knight can move
 	private void colorKnightSquares(Unit unit) {
 		Unit otherUnit = null;
 		
@@ -149,6 +153,8 @@ public class MousePressedAction implements EventHandler<MouseEvent> {
 		}
 	}
 
+	
+	//Highlights all the valid squares a Bishop can move
 	private void colorBishopSquares(Unit unit) {
 		Unit otherUnit = null;
 		//Check top left diagonal
@@ -260,6 +266,8 @@ public class MousePressedAction implements EventHandler<MouseEvent> {
 		}
 	}
 
+	
+	//Highlights all the valid squares a Rook can move
 	private void colorRookSquares(Unit unit) {
 		Unit otherUnit = null;
 		
@@ -336,7 +344,9 @@ public class MousePressedAction implements EventHandler<MouseEvent> {
 		}
 	}
 
-	private void colorKingSquares(Unit unit) {		
+
+	//Highlights all the valid squares a King can move
+	private void colorKingSquares(Unit unit) {
 		for(int x = unit.getX() - 1; x <= unit.getX() + 1; x++) {
 			for(int y = unit.getY() - 1; y <= unit.getY() + 1; y++) {
 				Unit otherUnit = getUnitAt(x, y);
@@ -347,6 +357,8 @@ public class MousePressedAction implements EventHandler<MouseEvent> {
 		}	
 	}
 
+	
+	//Highlights all the valid squares a Pawn can move
 	private void colorPawnSquares(Unit unit) {
 		int sideMultiplier = 1;
 		if(unit.getPlayer() == 1) {
@@ -373,6 +385,7 @@ public class MousePressedAction implements EventHandler<MouseEvent> {
 	}
 
 
+	//Retrieves the unit at the given x, y coordinate
 	public Unit getUnitAt(int x, int y) {
 		CheckerboardPane cp = checkerboardPane;
 		Unit unitAtCoords = null;
@@ -385,6 +398,7 @@ public class MousePressedAction implements EventHandler<MouseEvent> {
 	}
 
 
+	//Checks if the two input units are opposing sides. Ture if so and false otherwise
 	public boolean areOpposingUnits(Unit unit1, Unit unit2) {
 		if(unit1.getPlayer() != unit2.getPlayer()) {
 			return true;
