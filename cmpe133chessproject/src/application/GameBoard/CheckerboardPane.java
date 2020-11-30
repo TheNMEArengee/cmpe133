@@ -198,13 +198,11 @@ public class CheckerboardPane extends Pane {
 	public GraphicsContext getGraphicsContext() {
 		return gc;
 	}
-
 	
 	public Unit getMostRecentlyMovedUnit() {
 		return mostRecentlyMovedUnit;
 	}
 	
-
 	public void setMostRecentlyMovedUnit(Unit mostRecentlyMovedUnit) {
 		this.mostRecentlyMovedUnit = mostRecentlyMovedUnit;
 	}
@@ -216,4 +214,6 @@ public class CheckerboardPane extends Pane {
 	public void setMostRecentlyRemovedUnit(Unit mostRecentlyRemovedUnit) {
 		this.mostRecentlyRemovedUnit = mostRecentlyRemovedUnit;
 	}
+	
+
 }

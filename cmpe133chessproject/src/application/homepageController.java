@@ -79,13 +79,7 @@ public class homepageController {
 					
 					//Removing residual image
 					gc.clearRect(oldX * checkerboard.getTileSize(), oldY * checkerboard.getTileSize(), 60, 60);
-					if((oldX + oldY) % 2 == 0) { // Set fill to green if the square is a gray square
-						gc.setFill(Color.GREEN);
-					}
-					else { // Otherwise, set fill to white
-						gc.setFill(Color.WHITE);
-					}
-					gc.fillRect(oldX * checkerboard.getTileSize(), oldY * checkerboard.getTileSize(), 60, 60);
+					checkerboardPane.drawBoard();
 					checkerboardPane.setMostRecentlyMovedUnit(null);
 				}
 				

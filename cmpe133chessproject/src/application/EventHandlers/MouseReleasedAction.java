@@ -16,12 +16,14 @@ public class MouseReleasedAction implements EventHandler<MouseEvent> {
 	private CheckerboardPane checkerboardPane;
 	private Stage primaryStage;
 	private Scene welcomeScene;
+	private GraphicsContext gc;
 
 	// Constructor
 	public MouseReleasedAction(CheckerboardPane checkerboardPane, Stage primaryStage, Scene welcomeScene) {
 		this.checkerboardPane = checkerboardPane;
 		this.primaryStage = primaryStage;
 		this.welcomeScene = welcomeScene;
+		this.gc = checkerboardPane.getGraphicsContext();
 	}
 
 	// Main Handler
@@ -176,9 +178,7 @@ public class MouseReleasedAction implements EventHandler<MouseEvent> {
 												yCounter--;
 											}
 										}
-
 									}
-
 								} else {
 									validMove = false;
 								}
@@ -303,7 +303,7 @@ public class MouseReleasedAction implements EventHandler<MouseEvent> {
 									validMove = false;
 								} else { // Enemy unit, remove the enemy unit from the set
 									if (unitAtReleasedCoords.isKing()) {
-										System.out.println("Game Over!");
+										System.out.println(u.getColor() + " wins!");
 										primaryStage.close();
 										primaryStage.setScene(welcomeScene);
 										primaryStage.show();
@@ -325,7 +325,6 @@ public class MouseReleasedAction implements EventHandler<MouseEvent> {
 						if (validMove) {
 							int x = u.getX() * checkerboard.getTileSize();
 							int y = u.getY() * checkerboard.getTileSize();
-							GraphicsContext gc = checkerboardPane.getGraphicsContext();
 							gc.clearRect(x, y, 60, 60);
 							u.setPrevX(u.getX());
 							u.setPrevY(u.getY());
@@ -338,7 +337,7 @@ public class MouseReleasedAction implements EventHandler<MouseEvent> {
 						}
 					} else {
 						System.out.println("Invalid move: Drag only");
-						u.setSelected(false); // Remove if you want clicking
+						u.setSelected(false); // Remove if you want clicking					
 						break;
 					}
 				} else {
@@ -351,7 +350,9 @@ public class MouseReleasedAction implements EventHandler<MouseEvent> {
 		}
 		checkerboardPane.getUnits().remove(unitToRemove);
 		checkerboardPane.setMostRecentlyRemovedUnit(unitToRemove);
+		gc.clearRect(0, 0, 480, 480);
 		checkerboardPane.drawUnits();
+		
 	}
 
 
