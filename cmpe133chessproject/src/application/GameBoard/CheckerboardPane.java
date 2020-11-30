@@ -107,9 +107,9 @@ public class CheckerboardPane extends Pane {
 				Rectangle r = new Rectangle(x, y, tileSize, tileSize);
 				// Alternate Colors
 				if ((i + j) % 2 == 0) {
-					r.setFill(Color.rgb(232, 235, 239));
+					r.setFill(Color.GREEN);
 				} else {
-					r.setFill(Color.rgb(125, 135, 150));
+					r.setFill(Color.WHITE);
 				}
 
 				tileGroup.getChildren().add(r);

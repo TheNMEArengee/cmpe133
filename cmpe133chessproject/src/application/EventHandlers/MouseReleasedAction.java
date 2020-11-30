@@ -190,7 +190,6 @@ public class MouseReleasedAction implements EventHandler<MouseEvent> {
 								// 2 spots and 1 direction another, then we are okay
 								if ((x_movement == 1 && y_movement == 2) || (x_movement == 2 && y_movement == 1)) {
 									// Valid, check to if unit at path is ally or opponent
-									System.out.println("Else");
 									unitAtPath = unitExistsAtCoords(releasedX, releasedY, checkerboardPane);
 									if (unitAtPath != null) {
 										if (unitAtPath.getColor() == u.getColor()) { // If unit at path is the player's
@@ -305,6 +304,7 @@ public class MouseReleasedAction implements EventHandler<MouseEvent> {
 								} else { // Enemy unit, remove the enemy unit from the set
 									if (unitAtReleasedCoords.isKing()) {
 										System.out.println("Game Over!");
+										primaryStage.close();
 										primaryStage.setScene(welcomeScene);
 										primaryStage.show();
 										break;
@@ -334,7 +334,7 @@ public class MouseReleasedAction implements EventHandler<MouseEvent> {
 							checkerboardPane.setMostRecentlyMovedUnit(u);
 							System.out.println("Player " + checkerboard.getCurrPlayer() + " (" + u.getColor() + ")"
 									+ " move to " + releasedX + ", " + releasedY + ".");
-//							checkerboard.changePlayerTurn();
+							System.out.println("Undo or Confirm Move");
 						}
 					} else {
 						System.out.println("Invalid move: Drag only");
@@ -347,7 +347,6 @@ public class MouseReleasedAction implements EventHandler<MouseEvent> {
 				}
 				u.setSelected(false);
 				System.out.println("Unselected Unit.");
-				System.out.println("Undo or Confirm Move");
 			}
 		}
 		checkerboardPane.getUnits().remove(unitToRemove);
