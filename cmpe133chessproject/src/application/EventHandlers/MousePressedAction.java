@@ -46,9 +46,10 @@ public class MousePressedAction implements EventHandler<MouseEvent> {
 	}
 
 
+	//Highlights all the valid squares the selected unit can move to
 	private void colorValidSquares(Unit unit) {
 		if(unit.getPlayer() == checkerboardPane.getCheckerBoard().getCurrPlayer()) {
-			gc.setFill(Color.BLUE);
+			gc.setFill(Color.YELLOW);
 			gc.fillRect(unit.getX() * 60, unit.getY() * 60, 60, 60);
 			if(unit.getRole() == 0) {
 				colorPawnSquares(unit);
@@ -72,274 +73,268 @@ public class MousePressedAction implements EventHandler<MouseEvent> {
 
 	}
 
+
 	//Highlights all the valid squares a queen can move
 	private void colorQueenSquares(Unit unit) {
+		//Queen is just Rook + Bishop, so call those methods
 		colorRookSquares(unit);
 		colorBishopSquares(unit);
-
 	}
 
-	
+
 	//Highlights all the valid squares a Knight can move
 	private void colorKnightSquares(Unit unit) {
-		Unit otherUnit = null;
-		
-
-		//Check top squares
-		otherUnit = getUnitAt(unit.getX(), unit.getY() - 2);
-		if(otherUnit == null) {
-			//Check top left square
-			otherUnit = getUnitAt(unit.getX() + 1, unit.getY() - 2);
-			if(otherUnit == null || (otherUnit != null && areOpposingUnits(unit, otherUnit))) {
-				gc.fillRect((unit.getX() + 1) * 60, unit.getY() * 60, 60, 60);
-			}
-			
-			
-			
-//			if(otherUnit == null || areOpposingUnits(unit, otherUnit)) {
-//				gc.fillRect((unit.getX() + 1) * 60, (unit.getY() - 2) * 60, 60, 60);
-//			}
-			
-			otherUnit = getUnitAt(unit.getX() - 1, unit.getY() - 2);
-			if(otherUnit == null || (otherUnit != null && areOpposingUnits(unit, otherUnit))) {
-				gc.fillRect((unit.getX() - 1) * 60, (unit.getY() - 2) * 60, 60, 60);
-			}
-//			
-//			if(otherUnit == null || areOpposingUnits(unit, otherUnit)) {
-//				gc.fillRect((unit.getX() - 1) * 60, (unit.getY() - 2) * 60, 60, 60);
-//			}
-		}
+		//For the immediate area around it
+		for(int x = unit.getX() - 2; x <= unit.getX() + 2; x++) {
+			for(int y = unit.getY() - 2; y <= unit.getY() + 2; y++) {
+				Unit otherUnit = getUnitAt(x, y);
+				if(otherUnit == null || areOpposingUnits(unit, otherUnit)) {
+					tiledFillRect(x, y);
+				}
 
 
-		//Check left squares
-		otherUnit = getUnitAt(unit.getX() - 2, unit.getY());
-		if(otherUnit == null) {
-			otherUnit = getUnitAt(unit.getX() - 2, unit.getY() + 1);
-			if(otherUnit == null || areOpposingUnits(unit, otherUnit)) {
-				gc.fillRect((unit.getX() - 2) * 60, (unit.getY() + 1) * 60, 60, 60);
-			}
-			otherUnit = getUnitAt(unit.getX() - 2, unit.getY() - 1);
-			if(otherUnit == null || areOpposingUnits(unit, otherUnit)) {
-				gc.fillRect((unit.getX() - 2) * 60, (unit.getY() - 1) * 60, 60, 60);
-			}
-		}
+				//Un-highlight immediate area
+				for(int i = unit.getX() - 1; i <= unit.getX() + 1; i++) {
+					for(int j = unit.getY() - 1; j <= unit.getY() + 1; j++) {
+						otherUnit = getUnitAt(i, j);
+						//If there is no unit or an enemy unit, color the square
+						if(otherUnit == null || areOpposingUnits(unit, otherUnit)) {
+							gc.clearRect(i * 60, j  * 60, 60, 60);
+						}
+					}
+				}
+				gc.setFill(Color.YELLOW);
+				gc.fillRect(unit.getX() * 60, unit.getY() * 60, 60, 60);
+				
+
+				//Un-highlight corners
+				if(Math.abs(unit.getX() - x)  > 1 && Math.abs(unit.getY() - y)  > 1) {
+					gc.clearRect(x * 60, y  * 60, 60, 60);
+				}
 
 
-		//Check right squares
-		otherUnit = getUnitAt(unit.getX() + 2, unit.getY());
-		if(otherUnit == null) {
-			otherUnit = getUnitAt(unit.getX() + 2, unit.getY() + 1);
-			if(otherUnit == null || areOpposingUnits(unit, otherUnit)) {
-				gc.fillRect((unit.getX() + 2) * 60, (unit.getY() + 1) * 60, 60, 60);
-			}
-			otherUnit = getUnitAt(unit.getX() - 2, unit.getY() - 1);
-			if(otherUnit == null || areOpposingUnits(unit, otherUnit)) {
-				gc.fillRect((unit.getX() + 2) * 60, (unit.getY() - 1) * 60, 60, 60);
-			}
-		}
-
-
-		//Check bottom squares
-		otherUnit = getUnitAt(unit.getX(), unit.getY() + 2);
-		if(otherUnit == null) {
-			otherUnit = getUnitAt(unit.getX() + 1, unit.getY() + 2);
-			if(otherUnit == null || areOpposingUnits(unit, otherUnit)) {
-				gc.fillRect((unit.getX() + 1) * 60, (unit.getY() + 2) * 60, 60, 60);
-			}
-			otherUnit = getUnitAt(unit.getX() - 1, unit.getY() + 2);
-			if(otherUnit == null || areOpposingUnits(unit, otherUnit)) {
-				gc.fillRect((unit.getX() - 1) * 60, (unit.getY() + 2) * 60, 60, 60);
+				//Un-highlight N/S/E/W
+				if(x == unit.getX() || y == unit.getY()) {
+					gc.clearRect(x * 60, y  * 60, 60, 60);
+				}
 			}
 		}
 	}
 
-	
+
 	//Highlights all the valid squares a Bishop can move
 	private void colorBishopSquares(Unit unit) {
 		Unit otherUnit = null;
+
+
 		//Check top left diagonal
-		for(int i = 1; i <= 7; i++) {
-			if(unit.getX() - i >= 0 && unit.getY() - i >= 0) {
-				otherUnit = getUnitAt(unit.getX() - i, unit.getY() - i);
-//				if(otherUnit != null) {
-//					if(!areOpposingUnits(unit, otherUnit)) {
-//						break;
-//					}
-//				}
-//				else {
-//					gc.fillRect((unit.getX() - i) * 60, (unit.getY() - i) * 60, 60, 60);
-//				}			
-				if(otherUnit != null) {
-					if(!areOpposingUnits(unit, otherUnit)) {
-						break;
-					}
-					else {
-						gc.fillRect((unit.getX() - i) * 60, (unit.getY() - i) * 60, 60, 60);
-						break;
-					}
+		int i = 1;
+
+		//While checked square doesn't exceed game board
+		while(unit.getX() - i >= 0 && unit.getY() - i >= 0) {
+			otherUnit = getUnitAt(unit.getX() - i, unit.getY() - i);			
+			//If a unit exists at target square
+			if(otherUnit != null) {
+				//If its a unit of the same side, break immediately
+				if(!areOpposingUnits(unit, otherUnit)) {
+					break;
 				}
+				//Else, its an enemy unit. Color that square and then break
 				else {
-					gc.fillRect((unit.getX() - i) * 60, (unit.getY() - i) * 60, 60, 60);
+					tiledFillRect(unit.getX() - i, unit.getY() - i);
+//					gc.fillRect((unit.getX() - i) * 60, (unit.getY() - i) * 60, 60, 60);
+					break;
 				}
 			}
+			//Else, no enemy units. Color and check next square
+			else {
+				tiledFillRect(unit.getX() - i, unit.getY() - i);
+//				gc.fillRect((unit.getX() - i) * 60, (unit.getY() - i) * 60, 60, 60);
+			}
+
+			i++;
 		}
 
+
 		//Check top right diagonal
-		for(int j = 1; j <= 7; j++) {
-			if(unit.getX() + j <= 7 && unit.getY() - j >= 0) {
-				otherUnit = getUnitAt(unit.getX() + j, unit.getY() - j);
-//				if(otherUnit != null) {
-//					if(!areOpposingUnits(unit, otherUnit)) {
-//						break;
-//					}
-//				}
-//				else {
-//					gc.fillRect((unit.getX() + j) * 60, (unit.getY() - j) * 60, 60, 60);
-//				}
-				if(otherUnit != null) {
-					if(!areOpposingUnits(unit, otherUnit)) {
-						break;
-					}
-					else {
-						gc.fillRect((unit.getX() + j) * 60, (unit.getY() - j) * 60, 60, 60);
-						break;
-					}
+		int j = 1;
+		while(unit.getX() + j <= 7 && unit.getY() - j >= 0) {
+			otherUnit = getUnitAt(unit.getX() + j, unit.getY() - j);
+			//If a unit exists at target square
+			if(otherUnit != null) {
+				//If its a unit of the same side, break immediately
+				if(!areOpposingUnits(unit, otherUnit)) {
+					break;
 				}
+				//Else, its an enemy unit. Color that square and then break
 				else {
-					gc.fillRect((unit.getX() + j) * 60, (unit.getY() - j) * 60, 60, 60);
+					tiledFillRect(unit.getX() + j, unit.getY() - j);
+//					gc.fillRect((unit.getX() + j) * 60, (unit.getY() - j) * 60, 60, 60);
+					break;
 				}
 			}
+			//Else, no enemy units. Color and check next square
+			else {
+				tiledFillRect(unit.getX() + j, unit.getY() - j);
+//				gc.fillRect((unit.getX() + j) * 60, (unit.getY() - j) * 60, 60, 60);
+			}
+			j++;
 		}	
+
 
 		//Check bottom left diagonal
-		for(int k = 1; k <= 7; k++) {
-			if(unit.getX() - k >= 0 && unit.getY() + k <= 7) {
-				otherUnit = getUnitAt(unit.getX() - k, unit.getY() + k);
-//				if(otherUnit != null) {
-//					if(!areOpposingUnits(unit, otherUnit)) {
-//						break;
-//					}
-//				}
-//				else {
-//					gc.fillRect((unit.getX() - k) * 60, (unit.getY() + k) * 60, 60, 60);
-//				}
-				if(otherUnit != null) {
-					if(!areOpposingUnits(unit, otherUnit)) {
-						break;
-					}
-					else {
-						gc.fillRect((unit.getX() - k) * 60, (unit.getY() + k) * 60, 60, 60);
-						break;
-					}
+		int k = 1;
+		while(unit.getX() - k >= 0 && unit.getY() + k <= 7) {
+			otherUnit = getUnitAt(unit.getX() - k, unit.getY() + k);
+			//If a unit exists at target square
+			if(otherUnit != null) {
+				//If its a unit of the same side, break immediately
+				if(!areOpposingUnits(unit, otherUnit)) {
+					break;
 				}
+				//Else, its an enemy unit. Color that square and then break
 				else {
-					gc.fillRect((unit.getX() - k) * 60, (unit.getY() + k) * 60, 60, 60);
+					tiledFillRect(unit.getX() - k, unit.getY() + k);
+//					gc.fillRect((unit.getX() - k) * 60, (unit.getY() + k) * 60, 60, 60);
+					break;
 				}
 			}
+			//Else, no enemy units. Color and check next square
+			else {
+				tiledFillRect(unit.getX() - k, unit.getY() + k);
+//				gc.fillRect((unit.getX() - k) * 60, (unit.getY() + k) * 60, 60, 60);
+			}
+			k++;
 		}	
 
+
 		//Check bottom right diagonal
-		for(int l = 1; l <= 7; l++) {
-			if(unit.getX() + l <= 7 && unit.getY() + l <= 7) {
-				otherUnit = getUnitAt(unit.getX() + l - l, unit.getY() + l);
-//				if(otherUnit != null) {
-//					if(!areOpposingUnits(unit, otherUnit)) {
-//						break;
-//					}
-//				}
-//				else {
-//					gc.fillRect((unit.getX() + l) * 60, (unit.getY() + l) * 60, 60, 60);
-//				}
-				if(otherUnit != null) {
-					if(!areOpposingUnits(unit, otherUnit)) {
-						break;
-					}
-					else {
-						gc.fillRect((unit.getX() + l) * 60, (unit.getY() + l) * 60, 60, 60);
-						break;
-					}
+		int l = 1;
+		while(unit.getX() + l <= 7 && unit.getY() + l <= 7) {
+			otherUnit = getUnitAt(unit.getX() + l, unit.getY() + l);
+			if(otherUnit != null) {
+				//If its a unit of the same side, break immediately
+				if(!areOpposingUnits(unit, otherUnit)) {
+					break;
 				}
+				//Else, its an enemy unit. Color that square and then break
 				else {
-					gc.fillRect((unit.getX() + l) * 60, (unit.getY() + l) * 60, 60, 60);
+					tiledFillRect(unit.getX() + l, unit.getY() + l);
+//					gc.fillRect((unit.getX() + l) * 60, (unit.getY() + l) * 60, 60, 60);
+					break;
 				}
 			}
+			//Else, no enemy units. Color and check next square
+			else {
+				tiledFillRect(unit.getX() + l, unit.getY() + l);
+//				gc.fillRect((unit.getX() + l) * 60, (unit.getY() + l) * 60, 60, 60);
+			}
+			l++;
 		}
 	}
 
-	
+
 	//Highlights all the valid squares a Rook can move
 	private void colorRookSquares(Unit unit) {
 		Unit otherUnit = null;
-		
-		
+
+
 		//Check left
+		//While in bounds
 		for(int x = unit.getX() - 1; x >= 0; x--) {
 			otherUnit = getUnitAt(x, unit.getY());
+			//If a unit is on the path
 			if(otherUnit != null) {
+				//If its a friendly unit, break immediately
 				if(!areOpposingUnits(unit, otherUnit)) {
 					break;
 				}
+				//Else, its an enemy unit. Color and then break
 				else {
-					gc.fillRect(x * 60, unit.getY() * 60, 60, 60);
+					tiledFillRect(x, unit.getY());
+//					gc.fillRect(x * 60, unit.getY() * 60, 60, 60);
 					break;
 				}
 			}
+			//Else. nothing in path. Color and check next square
 			else {
-				gc.fillRect(x * 60, unit.getY() * 60, 60, 60);
-			}
-		}
-		
-		
-		//Check right
-		for(int x = unit.getX() + 1; x <= 7; x++) {
-			otherUnit = getUnitAt(x, unit.getY());
-			if(otherUnit != null) {
-				if(!areOpposingUnits(unit, otherUnit)) {
-					break;
-				}
-				else {
-					gc.fillRect(x * 60, unit.getY() * 60, 60, 60);
-					break;
-				}
-			}
-			else {
-				gc.fillRect(x * 60, unit.getY() * 60, 60, 60);
-			}
-		}
-		
-		
-		//Check up
-		for(int y = unit.getY() - 1; y >= 0; y--) {
-			otherUnit = getUnitAt(unit.getX(), y);
-			if(otherUnit != null) {
-				if(!areOpposingUnits(unit, otherUnit)) {
-					break;
-				}
-				else {
-					gc.fillRect(unit.getX() * 60, y * 60, 60, 60);
-					break;
-				}
-			}
-			else {
-				gc.fillRect(unit.getX() * 60, y * 60, 60, 60);
+				tiledFillRect(x, unit.getY());
+//				gc.fillRect(x * 60, unit.getY() * 60, 60, 60);
 			}
 		}
 
-		
-		//Check down
-		for(int y = unit.getY() + 1; y <= 7; y++) {
-			otherUnit = getUnitAt(unit.getX(), y);
+
+		//Check right
+		//While in bounds
+		for(int x = unit.getX() + 1; x <= 7; x++) {
+			otherUnit = getUnitAt(x, unit.getY());
+			//If a unit is on the path
 			if(otherUnit != null) {
+				//If its a friendly unit, break immediately
 				if(!areOpposingUnits(unit, otherUnit)) {
 					break;
 				}
+				//Else, its an enemy unit. Color and then break
 				else {
-					gc.fillRect(unit.getX() * 60, y * 60, 60, 60);
+					tiledFillRect(x, unit.getY());
+//					gc.fillRect(x * 60, unit.getY() * 60, 60, 60);
 					break;
 				}
 			}
+			//Else. nothing in path. Color and check next square
 			else {
-				gc.fillRect(unit.getX() * 60, y * 60, 60, 60);
+				tiledFillRect(x, unit.getY());
+//				gc.fillRect(x * 60, unit.getY() * 60, 60, 60);
+			}
+		}
+
+
+		//Check up
+		//While in bounds
+		for(int y = unit.getY() - 1; y >= 0; y--) {
+			otherUnit = getUnitAt(unit.getX(), y);
+			//If a unit is on the path
+			if(otherUnit != null) {
+				//If its a friendly unit, break immediately
+				if(!areOpposingUnits(unit, otherUnit)) {
+					break;
+				}
+				//Else, its an enemy unit. Color and then break
+				else {
+					tiledFillRect(unit.getX(), y);
+//					gc.fillRect(unit.getX() * 60, y * 60, 60, 60);
+					break;
+				}
+			}
+			//Else. nothing in path. Color and check next square
+			else {
+				tiledFillRect(unit.getX(), y);
+//				gc.fillRect(unit.getX() * 60, y * 60, 60, 60);
+			}
+		}
+
+
+		//Check down
+		//While in bounds
+		for(int y = unit.getY() + 1; y <= 7; y++) {
+			otherUnit = getUnitAt(unit.getX(), y);
+			//If a unit is on the path
+			if(otherUnit != null) {
+				//If its a friendly unit, break immediately
+				if(!areOpposingUnits(unit, otherUnit)) {
+					break;
+				}
+				//Else, its an enemy unit. Color and then break
+				else {
+					tiledFillRect(unit.getX(), y);
+//					gc.fillRect(unit.getX() * 60, y * 60, 60, 60);
+					break;
+				}
+			}
+			//Else. nothing in path. Color and check next square
+			else {
+				tiledFillRect(unit.getX(), y);
+//				gc.fillRect(unit.getX() * 60, y * 60, 60, 60);
 			}
 		}
 	}
@@ -347,40 +342,43 @@ public class MousePressedAction implements EventHandler<MouseEvent> {
 
 	//Highlights all the valid squares a King can move
 	private void colorKingSquares(Unit unit) {
+		//For the immediate area around it
 		for(int x = unit.getX() - 1; x <= unit.getX() + 1; x++) {
 			for(int y = unit.getY() - 1; y <= unit.getY() + 1; y++) {
 				Unit otherUnit = getUnitAt(x, y);
+				//If there is no unit or an enemy unit, color the square
 				if(otherUnit == null || areOpposingUnits(unit, otherUnit)) {
-					gc.fillRect(x * 60, y  * 60, 60, 60);
+					tiledFillRect(x, y);
 				}
 			}
 		}	
 	}
 
-	
+
 	//Highlights all the valid squares a Pawn can move
-	private void colorPawnSquares(Unit unit) {
+	private void colorPawnSquares(Unit unit) {	
+		//Allows code to work for both white and black pieces
 		int sideMultiplier = 1;
 		if(unit.getPlayer() == 1) {
 			sideMultiplier = -1;
 		}
+		
+
 		Unit otherUnit = getUnitAt(unit.getX(), unit.getY() + (1 * sideMultiplier));
-
-
 		//Checking straight ahead
 		if(otherUnit == null) {
-			gc.fillRect(unit.getX() * 60, (unit.getY() + (1 * sideMultiplier)) * 60, 60, 60);
+			tiledFillRect(unit.getX(), (unit.getY() + (1 * sideMultiplier)));
 		}
 
 
 		//Checking diagonals
 		otherUnit = getUnitAt(unit.getX() + 1, unit.getY() + (1 * sideMultiplier));
 		if(otherUnit != null && areOpposingUnits(unit, otherUnit)) {
-			gc.fillRect((unit.getX() + 1) * 60, (unit.getY() + (1 * sideMultiplier)) * 60, 60, 60);
+			tiledFillRect((unit.getX() + 1), (unit.getY() + (1 * sideMultiplier)));
 		}
 		otherUnit = getUnitAt(unit.getX() - 1, unit.getY() + (1 * sideMultiplier));
 		if(otherUnit != null && areOpposingUnits(unit, otherUnit)) {
-			gc.fillRect((unit.getX() - 1) * 60, (unit.getY() + (1 * sideMultiplier)) * 60, 60, 60);
+			tiledFillRect((unit.getX() - 1), (unit.getY() + (1 * sideMultiplier)));
 		}
 	}
 
@@ -407,5 +405,14 @@ public class MousePressedAction implements EventHandler<MouseEvent> {
 	}
 
 
-
+	//Color method for the colorValidSquares() method
+		public void tiledFillRect(int x, int y) {
+			// Alternate Colors
+			if ((x + y) % 2 == 0) {
+				gc.setFill(Color.DARKBLUE);
+			} else {
+				gc.setFill(Color.LIGHTBLUE);
+			}
+			gc.fillRect(x * 60, y * 60, 60, 60);
+		}
 }
